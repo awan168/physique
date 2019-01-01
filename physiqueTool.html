@@ -350,11 +350,7 @@ TABS:          tabs-2 : 體質分析
 -->
 
   <div id="tabs-2">
-<head>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script>       
-    google.charts.load("current", {packages:['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
 
  function drawChart(){
        var sp_a = parseInt(localStorage.getItem("bar_a"));
@@ -366,18 +362,10 @@ TABS:          tabs-2 : 體質分析
        var sp_g = parseInt(localStorage.getItem("bar_g"));
        var sp_h = parseInt(localStorage.getItem("bar_h"));
      
+/*
       var data = google.visualization.arrayToDataTable([
         ["Element", "傾向度", { role: "style" } ],
-/*
-        ["脾陽虛", sp_a, "#b87333"],
-        ["腎陽虛", sp_b, "#005555"],
-        ["血虛",   sp_c, "#00aaaa"],
-        ["陰虛",   sp_d, "#00ffff"]
-        ["氣滯",   sp_e, "#b87333"],
-        ["濕熱",   sp_f, "#005555"],
-        ["血瘀",   sp_g, "#00aaaa"],
-        ["痰濕",   16, "#00ffff"]
-*/
+
         ["脾陽虛", sp_a, "#FFFFCC"],
         ["腎陽虛", sp_b, "#CCE6FF"],
         ["血虛", sp_c, "#FF7142"],
@@ -386,7 +374,9 @@ TABS:          tabs-2 : 體質分析
         ["濕熱", sp_f, "#FF2E2E"],
         ["血瘀", sp_g, "#5900B3"],
         ["痰濕", sp_h, "#FFFF29"]
-      ]);
+     );
+
+, 
 
       var view = new google.visualization.DataView(data);
       view.setColumns([0, 1,
@@ -402,18 +392,79 @@ TABS:          tabs-2 : 體質分析
         height: 600,
         bar: {groupWidth: "60%"},
         legend: { position: "none" },
+        hAxis : {
+            textStyle : {
+                fontSize: 7, // or the number you want
+                textStyle:{color: '#ededed'}
+            }
+         }
+
       };
-      var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+      var chart = new google.visualization.BarChart(document.getElementById("columnchart_values"));
       chart.draw(view, options);  
 
  }
+
+
+
+*/
 </script>              
-</head>
 
-    <div id="mouseoverdiv"></div>
-    <div id="columnchart_values" style="width: 500px; height: 200px;"></div>
 
-        <button onclick="drawChart()">開始計算</button>
+
+<script src="https://cdn.bootcss.com/Chart.js/2.4.0/Chart.bundle.js"></script>
+
+<canvas id="myChart" width="100" height="100"></canvas>
+<script> 
+var ctx = document.getElementById('myChart');
+var ctx = document.getElementById('myChart').getContext('2d');
+var ctx = $('#myChart');
+var ctx = "myChart";
+
+      var sp_a = parseInt(localStorage.getItem("bar_a"));
+      var sp_b = parseInt(localStorage.getItem("bar_b"));
+      var sp_c = parseInt(localStorage.getItem("bar_c"));
+      var sp_d = parseInt(localStorage.getItem("bar_d"));
+      var sp_e = parseInt(localStorage.getItem("bar_e"));
+      var sp_f = parseInt(localStorage.getItem("bar_f"));
+      var sp_g = parseInt(localStorage.getItem("bar_g"));
+      var sp_h = parseInt(localStorage.getItem("bar_h"));
+
+var ctx = document.getElementById('myChart');
+var myChart = new Chart(ctx, {
+  type: 'horizontalBar',
+  data: {
+    labels: [ '脾陽虛', '腎陽虛', '血虛', '陰虛', '氣滯', '濕熱', '血瘀', '痰濕'],
+    datasets: [{
+      backgroundColor: [
+        'rgba(102, 255, 102, 0.3)',
+        'rgba(102, 204, 255, 0.3)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(51, 153, 51, 0.2)',
+        'rgba(255, 102, 0, 0.2)',
+        'rgba(0, 153, 255, 0.2)'
+      ],
+      borderColor: [
+        'rgba(102, 255, 102, 1)',
+        'rgba(102, 204, 255, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(255, 99, 132, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(51, 153, 51, 1)',
+        'rgba(255, 102, 0, 1)',
+        'rgba(0, 153, 255, 1)'
+      ],
+      borderWidth: 1,
+      label: '體質分析量化圖',
+      data: [sp_a, sp_b, sp_c, sp_d, sp_e, sp_f, sp_g, sp_h]
+    }]
+  }
+});
+
+
+</script>               
 
        
   </div>
